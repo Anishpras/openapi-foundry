@@ -1,0 +1,38 @@
+name: Release
+
+# Publishes openapi-foundry to npm on a v* tag, using OIDC Trusted Publishing —
+# no NPM_TOKEN stored in the repo.
+#
+# One-time setup (npmjs.com → openapi-foundry → Settings → Trusted Publisher →
+# GitHub Actions): repository `Anishpras/openapi-foundry`, workflow `release.yml`.
+# The package already exists (0.1.0 published manually), so the trusted publisher
+# can be attached now and future releases are tokenless.
+#
+# To release: bump `version` in package.json, commit, then `git tag vX.Y.Z &&
+# git push origin main vX.Y.Z`. Publishing fails if the version already exists.
+
+on:
+  push:
+    tags: ['v*']
+
+jobs:
+  npm:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write # OIDC token for Trusted Publishing
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+      # Trusted Publishing needs npm >= 11.5.1 (newer than what Node 20 ships).
+      - run: npm install -g npm@latest
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm build
+      - name: Publish (OIDC)
+        run: npm publish
