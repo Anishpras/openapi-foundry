@@ -1,0 +1,56 @@
+{
+  "name": "openapi-foundry",
+  "version": "0.1.0",
+  "description": "Generate a TypeScript SDK, MCP server, branded CLI, and Python SDK + MCP server from one OpenAPI spec and one config — with the custom fetch client and response-envelope handling templated consistently across artifacts.",
+  "type": "module",
+  "bin": {
+    "openapi-foundry": "./dist/cli.js"
+  },
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsdown && node scripts/fix-dts.mjs",
+    "typecheck": "tsc --noEmit",
+    "prepublishOnly": "pnpm run build"
+  },
+  "keywords": [
+    "openapi",
+    "codegen",
+    "sdk-generator",
+    "mcp",
+    "cli-generator",
+    "kubb",
+    "openapi-python-client",
+    "typescript",
+    "python"
+  ],
+  "license": "MIT",
+  "author": "anishpras",
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "@kubb/core": "3.18.3",
+    "@kubb/plugin-client": "3.18.3",
+    "@kubb/plugin-mcp": "3.18.3",
+    "@kubb/plugin-oas": "3.18.3",
+    "@kubb/plugin-ts": "3.18.3",
+    "@kubb/plugin-zod": "3.18.3",
+    "jiti": "^2.4.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "tsdown": "^0.12.0",
+    "typescript": "^5.9.0"
+  }
+}
