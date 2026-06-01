@@ -46,11 +46,11 @@ export interface FoundryConfig {
 	spec: string;
 	/** Output root for generated artifacts, relative to the config file. */
 	outDir: string;
-	/** Product display name, e.g. `Assistable AI`. */
+	/** Product display name, e.g. `example AI`. */
 	displayName: string;
-	/** Base slug used for package names, e.g. `assistableai`. */
+	/** Base slug used for package names, e.g. `exampleai`. */
 	name: string;
-	/** npm scope for the TS packages, e.g. `@assistableai`. */
+	/** npm scope for the TS packages, e.g. `@exampleai`. */
 	npmScope: string;
 	/** CLI binary name (defaults to `name`). */
 	cliBin?: string;
